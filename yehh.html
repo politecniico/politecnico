@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reglamento Red Protocol - Politécnico San Pablo Apóstol</title>
+    <style>
+        :root {
+            --rojo-neon: #ff4d4d; 
+            --oscuro-deep: #0f0505;
+            --tarjeta-bg: rgba(28, 10, 10, 0.7); /* Ligeramente más opaco para el fondo de partículas */
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--oscuro-deep), #1a0505);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 1. CONTENEDOR PARA EL FONDO DE PARTÍCULAS */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Detrás de todo */
+        }
+
+        /* LÍNEAS DE ESCANEO ROJAS (Añaden textura) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 2px,
+                rgba(255, 77, 77, 0.03) 3px
+            );
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(15, 5, 5, 0.95);
+            border-bottom: 2px solid var(--rojo-neon);
+            box-shadow: 0 0 25px rgba(255, 77, 77, 0.2);
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            z-index: 15; /* Por encima de las partículas */
+        }
+
+        .header h1 {
+            margin: 0;
+            color: var(--rojo-neon);
+            text-shadow: 0 0 15px var(--rojo-neon);
+            letter-spacing: 3px;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 15; /* Por encima de las partículas */
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        /* 2. TARJETAS CON ANIMACIÓN DE FLOTACIÓN MÍNIMA */
+        .rule-card {
+            background: var(--tarjeta-bg);
+            border: 1px solid rgba(255, 77, 77, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            backdrop-filter: blur(6px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            
+            /* Animación de flotación individual */
+            animation: floatRule 5s ease-in-out infinite;
+        }
+
+        /* Variación de tiempo y retraso para que no se muevan iguales */
+        .rule-card:nth-child(even) { animation-duration: 6s; animation-delay: 0.5s; }
+        .rule-card:nth-child(3n) { animation-duration: 7s; animation-delay: 0.2s; }
+
+        /* Definición de la flotación (Movimiento mínimo) */
+        @keyframes floatRule {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); } /* Solo 6px de subida */
+        }
+
+        .rule-card:hover {
+            /* Mantenemos el zoom y brillo al pasar el mouse */
+            transform: scale(1.1) translateY(-10px) !important; /* !important para anular la flotación */
+            border-color: var(--rojo-neon);
+            box-shadow: 0 15px 35px rgba(255, 77, 77, 0.4);
+            background: rgba(45, 15, 15, 0.95);
+            z-index: 100;
+        }
+
+        .rule-card img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 8px var(--rojo-neon));
+        }
+
+        .rule-card h3 {
+            color: var(--rojo-neon);
+            margin: 10px 0;
+        }
+
+        .rule-card p {
+            color: #f5cbd0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .center-btn {
+            text-align: center;
+            padding: 20px 0 50px 0;
+            position: relative;
+            z-index: 15;
+        }
+
+        .btn-back {
+            display: inline-block;
+            padding: 12px 35px;
+            color: var(--rojo-neon);
+            border: 2px solid var(--rojo-neon);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+            background: transparent;
+            animation: fadeInUp 0.8s ease-out 0.5s backwards;
+        }
+
+        .btn-back:hover {
+            background: var(--rojo-neon);
+            color: white;
+            box-shadow: 0 0 25px var(--rojo-neon);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <div class="header">
+        <h1>REGLAS DEL CENTRO</h1>
+        <p style="color: #ffcccc;">Reglamentos del centro San Pablo Apóstol q se deben seguir.</p>
+    </div>
+
+    <main class="rules-grid">
+        <div class="rule-card">
+            <img src="https://img.freepik.com/vector-premium/nino-escuela-feliz-uniforme-escolar-agitando-mano-sobre-fondo-blanco_1023984-27627.jpg?w=2000">
+            <h3>Uniforme</h3>
+            <p>Portar el uniforme oficial completo, manteniendo la estética y el orden institucional.</p>
+        </div>
+
+        <div class="rule-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/2972/2972531.png">
+            <h3>Puntualidad</h3>
+            <p>La entrada a los módulos debe ser puntual. Los retrasos afectan la sincronización.</p>
+        </div>
+
+        <div class="rule-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/3022/3022215.png">
+            <h3>Dispositivos</h3>
+            <p>Uso restringido de móviles. Solo bajo autorización para fines educativos.</p>
+        </div>
+
+        <div class="rule-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1162/1162951.png">
+            <h3>Respeto</h3>
+            <p>Interactuar con respeto hacia maestros y compañeros. Ambiente libre de conflictos.</p>
+        </div>
+
+        <div class="rule-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png">
+            <h3>Limpieza</h3>
+            <p>Estaciones de trabajo limpias. El orden físico refleja el orden mental.</p>
+        </div>
+
+        <div class="rule-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/4252/4252324.png">
+            <h3>Responsabilidad</h3>
+            <p>Cumplir con asignaciones y proyectos en los plazos establecidos.</p>
+        </div>
+    </main>
+
+    <div class="center-btn">
+        <a href="file:///C:/Users/frand/Desktop/Politecnico%20San%20pablo%20Apostol.html" class="btn-back">REGRESAR A LA PÁGINA PRINCIPAL</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Configuración de las partículas ROJAS
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#ff4d4d" },
+                shape: { type: "circle" },
+                opacity: { value: 0.3, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#ff4d4d", opacity: 0.2, width: 1 },
+                move: { enable: true, speed: 1.5, direction: "none", random: true, straight: false, out_mode: "out" }
+            },
+            interactivity: {
+                events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } }
+            },
+            retina_detect: true
+        });
+    </script>
+
+</body>
+</html>
